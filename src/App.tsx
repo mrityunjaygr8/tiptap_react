@@ -6,6 +6,7 @@ function App() {
     <>
       <p> Prepend </p>
       <Demo />
+      <p> Append </p>
     </>
   );
 }
