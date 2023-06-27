@@ -5,39 +5,39 @@ import {
   mergeAttributes,
 } from '@tiptap/core';
 
-export interface CurlyBoldOptions {
+export interface JinjaCommentOptions {
   HTMLAttributes: Record<string, any>;
 }
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    curlyBold: {
+    jinjaComment: {
       /**
        * Set a bold mark
        */
-      setCurlyBold: () => ReturnType;
+      setJinjaComment: () => ReturnType;
       /**
        * Toggle a bold mark
        */
-      toggleCurlyBold: () => ReturnType;
+      toggleJinjaComment: () => ReturnType;
       /**
        * Unset a bold mark
        */
-      unsetCurlyBold: () => ReturnType;
+      unsetJinjaComment: () => ReturnType;
     };
   }
 }
 
-export const curlyBraceInputRegex = /(?:^|\s)((?:\{\{)((?:[^*]+))(?:\}\}))$/;
-export const curlyBracePasteRegex = /(?:^|\s)((?:\{\{)((?:[^*]+))(?:\}\}))/g;
+export const jinjaCommentInputRegex = /(?:^|\s)((?:\{\#)((?:[^*]+))(?:\#\}))$/;
+export const jinjaCommentPasteRegex = /(?:^|\s)((?:\{\#)((?:[^*]+))(?:\#\}))/g;
 
-export const Bold = Mark.create<CurlyBoldOptions>({
-  name: 'curly-bold',
+export const JinjaComment = Mark.create<JinjaCommentOptions>({
+  name: 'jinja-comment',
 
   addOptions() {
     return {
       HTMLAttributes: {
-        class: "tiptap--curly-bold--yoyo",
+        class: "tiptap--jinja--comment",
       },
     };
   },
@@ -60,17 +60,17 @@ export const Bold = Mark.create<CurlyBoldOptions>({
 
   addCommands() {
     return {
-      setCurlyBold:
+      setJinjaComment:
         () =>
         ({ commands }) => {
           return commands.setMark(this.name);
         },
-      toggleCurlyBold:
+      toggleJinjaComment:
         () =>
         ({ commands }) => {
           return commands.toggleMark(this.name);
         },
-      unsetCurlyBold:
+      unsetJinjaComment:
         () =>
         ({ commands }) => {
           return commands.unsetMark(this.name);
@@ -80,15 +80,14 @@ export const Bold = Mark.create<CurlyBoldOptions>({
 
   addKeyboardShortcuts() {
     return {
-      'Mod-m': () => this.editor.commands.toggleCurlyBold(),
-      'Mod-M': () => this.editor.commands.toggleCurlyBold(),
+      'Mod-#': () => this.editor.commands.toggleJinjaComment(),
     };
   },
 
   addInputRules() {
     return [
       markInputRule({
-        find: curlyBraceInputRegex,
+        find: jinjaCommentInputRegex,
         type: this.type,
       }),
     ];
@@ -97,7 +96,7 @@ export const Bold = Mark.create<CurlyBoldOptions>({
   addPasteRules() {
     return [
       markPasteRule({
-        find: curlyBracePasteRegex,
+        find: jinjaCommentPasteRegex,
         type: this.type,
       }),
     ];

@@ -1,7 +1,10 @@
-.tiptap--curly-bold--yoyo {
-  background-color: red;
+.tiptap--jinja--variable {
   text-transform: uppercase;
-  color: white;
+  border: dashed 2px;
+}
+
+.tiptap--jinja--comment {
+  color: #aaaaaa;
 }
 
 #root {
