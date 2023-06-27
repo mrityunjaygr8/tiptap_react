@@ -11,7 +11,7 @@ export interface CurlyBoldOptions {
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
-    bold: {
+    curlyBold: {
       /**
        * Set a bold mark
        */
@@ -37,9 +37,7 @@ export const Bold = Mark.create<CurlyBoldOptions>({
   addOptions() {
     return {
       HTMLAttributes: {
-        style: {
-          color: 'red',
-        },
+        class: "tiptap--curly-bold--yoyo",
       },
     };
   },
@@ -54,7 +52,7 @@ export const Bold = Mark.create<CurlyBoldOptions>({
 
   renderHTML({ HTMLAttributes }) {
     return [
-      'div',
+      'span',
       mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
       0,
     ];
